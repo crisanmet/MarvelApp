@@ -20,10 +20,19 @@ class EventsViewModel {
     
     var events = [Character]()
     
+    var eventsSorted = [Character]()
+        
     var eventsService: EventsFetching
     
     init(eventsService: EventsFetching = EventsService()) {
         self.eventsService = eventsService
+    }
+    
+    func sortEvents(){
+    
+        let sortedEvents = events.sorted(by: {$0.modified ?? "Unkown date" < $1.modified ?? "Unkown date"
+        })
+        eventsSorted = sortedEvents
     }
     
     func getEvents(){
@@ -32,6 +41,7 @@ class EventsViewModel {
             self?.eventsService.fetchEvent(onComplete: { event in
                 self?.events = event.data.results
                 self?.delegate?.didGetEventsData()
+                self?.sortEvents()
                 self?.loadingView(.hide)
             }, onError: { error in
                 self?.delegate?.didFailGettingEventsData(error: error)
@@ -41,11 +51,11 @@ class EventsViewModel {
     }
     
     func getEvents(at index:Int) -> Character{
-        return events[index]
+        return eventsSorted[index]
     }
     
     func getEventsCount() -> Int{
-        return events.count
+        return eventsSorted.count
     }
     
     func loadingView(_ state: LoadingViewState){

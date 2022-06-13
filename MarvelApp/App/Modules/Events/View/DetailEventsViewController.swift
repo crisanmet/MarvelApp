@@ -101,6 +101,7 @@ class DetailEventsViewController: UIViewController {
     lazy var eventsFeedTable: UITableView = {
         let table = UITableView()
         table.register(ReusableTableViewCell.self, forCellReuseIdentifier: ReusableTableViewCell.identifier)
+        table.showsVerticalScrollIndicator = false
         table.delegate = self
         table.dataSource = self
         return table
