@@ -13,6 +13,31 @@ class CharacterDetailViewController: UIViewController {
     
     var characterComics = [Comics]()
     
+    required init(model: Character) {
+        super.init(nibName: nil, bundle: nil)
+        setupUI(model: model)
+        loadImage(model: model)
+    }
+    
+    private func setupUI(model: Character){
+        DispatchQueue.main.async { [weak self] in
+            self?.title = model.name
+            self?.captionLabel.text = model.resultDescription?.description
+            self?.characterComics = model.comics.items
+        }
+    }
+    
+    private func loadImage(model: Character){
+        guard let urlString = URL(string: "\(model.thumbnail?.path ?? "").\(model.thumbnail?.thumbnailExtension ?? "")") else {return}
+        DispatchQueue.main.async { [weak self] in
+            self?.frontImage.load(url: urlString)
+        }
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     lazy var contenViewSize = CGSize(width: self.view.frame.width, height: self.view.frame.height + 400)
     
     lazy var scrollView: UIScrollView = {

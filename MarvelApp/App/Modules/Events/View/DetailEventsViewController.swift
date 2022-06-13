@@ -13,6 +13,36 @@ class DetailEventsViewController: UIViewController {
     
     var eventsComics = [Comics]()
     
+    required init(model: Character, date: String) {
+        super.init(nibName: nil, bundle: nil)
+        setupUI(model: model)
+        loadImage(model: model)
+        setupDate(date: date)
+    }
+    
+    private func setupDate(date: String){
+        DispatchQueue.main.async{ [weak self] in
+            self?.captionLabel.text = date
+        }
+    }
+    private func setupUI(model: Character){
+        DispatchQueue.main.async { [weak self] in
+            self?.nameLabel.text = model.title?.uppercased()
+            self?.eventsComics = model.comics.items
+        }
+    }
+    
+    private func loadImage(model: Character){
+        guard let urlString = URL(string: "\(model.thumbnail?.path ?? "").\(model.thumbnail?.thumbnailExtension ?? "")") else {return}
+        DispatchQueue.main.async { [weak self] in
+            self?.frontImageView.load(url: urlString)
+        }
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     lazy var contenViewSize = CGSize(width: self.view.frame.width, height: self.view.frame.height + 400)
     
     lazy var scrollView: UIScrollView = {
@@ -111,18 +141,6 @@ class DetailEventsViewController: UIViewController {
         
         
     }
-    
-    public func configureCell(with model:Character){
-        guard let urlString = URL(string: "\(model.thumbnail?.path ?? "").\(model.thumbnail?.thumbnailExtension ?? "")") else {return}
-        DispatchQueue.main.async { [weak self] in
-            self?.frontImageView.load(url: urlString)
-            self?.nameLabel.text = model.title?.uppercased()
-            guard let safeData = model.start else { return}
-            self?.captionLabel.text = safeData
-        }
-    }
-
-
 }
 
 //MARK: - Delegate & Datasource

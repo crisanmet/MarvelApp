@@ -135,10 +135,9 @@ extension EventsViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
-        let detailEventsVC = DetailEventsViewController()
         let event = viewModel.getEvents(at: indexPath.row)
-        detailEventsVC.eventsComics = event.comics.items
-        detailEventsVC.configureCell(with: event)
+        let dateFormat = viewModel.convertDateFormat(inputDate: event.modified ?? "Unkown date")
+        let detailEventsVC = DetailEventsViewController(model: event, date: dateFormat)
         detailEventsVC.modalPresentationStyle = .popover
         present(detailEventsVC, animated: true)
         

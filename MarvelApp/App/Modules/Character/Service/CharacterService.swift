@@ -53,7 +53,6 @@ struct CharacterService: CharacterFetching {
         if shouldPage{
             let offset = limit * pageNumber
             queryString = queryString + "&offset=\(offset)&limit=\(limit)"
-            print(queryString)
         }
         return queryString
     }

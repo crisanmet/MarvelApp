@@ -137,10 +137,9 @@ extension CharacterViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let detailVC = CharacterDetailViewController()
         let character = viewModel.getCharacter(at: indexPath.row)
-        detailVC.characterComics = character.comics.items
-        detailVC.configureDetail(with: character)
+        let detailVC = CharacterDetailViewController(model: character)
+        
         navigationController?.pushViewController(detailVC, animated: true)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
