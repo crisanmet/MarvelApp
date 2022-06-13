@@ -29,7 +29,7 @@ struct EventsService: EventsFetching {
                                   "limit": 15
         ]
         
-        ApiManager.shared.get(url: "\(baseURL)", params: params) { response in
+        ApiManager.shared.get(url: "\(baseURL)") { response in
             switch response {
             case .success(let data):
                 do{

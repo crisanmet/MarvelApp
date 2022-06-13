@@ -67,14 +67,14 @@ class EventsViewController: UIViewController {
 //MARK: - Events view model Delegate
 
 extension EventsViewController: EventsViewModelDelegate{
-    
+
     func didGetEventsData() {
         DispatchQueue.main.async { [weak self] in
             self?.collectionView.isHidden = false
             self?.collectionView.reloadData()
         }
     }
-    
+
     func didFailGettingEventsData(error: String) {
         DispatchQueue.main.async { [weak self] in
             self?.collectionView.isHidden = true
@@ -119,11 +119,14 @@ extension EventsViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let detailVC = CharacterDetailViewController()
-//        let character = viewModel.getCharacter(at: indexPath.row)
-//        detailVC.characterComics = character.comics.items
-//        detailVC.configureDetail(with: character)
-//        navigationController?.pushViewController(detailVC, animated: true)
+
+        let detailEventsVC = DetailEventsViewController()
+        let event = viewModel.getEvents(at: indexPath.row)
+        detailEventsVC.eventsComics = event.comics.items
+        detailEventsVC.configureCell(with: event)
+        detailEventsVC.modalPresentationStyle = .popover
+        present(detailEventsVC, animated: true)
+        
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 10
