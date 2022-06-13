@@ -58,7 +58,8 @@ class CharacterDetailViewController: UIViewController {
 
     lazy var comicsFeedTable: UITableView = {
         let table = UITableView()
-        table.register(ComicsTableViewCell.self, forCellReuseIdentifier: ComicsTableViewCell.identifier)
+        table.register(ReusableTableViewCell.self, forCellReuseIdentifier: ReusableTableViewCell.identifier)
+        table.rowHeight = 50
         table.delegate = self
         table.dataSource = self
         return table
@@ -117,7 +118,7 @@ extension CharacterDetailViewController: UITableViewDataSource, UITableViewDeleg
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ComicsTableViewCell.identifier, for: indexPath) as? ComicsTableViewCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ReusableTableViewCell.identifier, for: indexPath) as? ReusableTableViewCell
         else {
             return UITableViewCell()
         }

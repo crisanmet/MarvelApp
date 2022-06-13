@@ -13,6 +13,8 @@ class CharacterViewController: UIViewController {
     
     //MARK: - Properties
     
+    var loadingIndicator = UIActivityIndicatorView(style: .large)
+    
     var pagingNumber = 1
     
     lazy var viewModel: CharacterViewModel = {
@@ -65,6 +67,8 @@ class CharacterViewController: UIViewController {
             
             present(alert, animated: true)
         }
+    
+
 }
 
 
@@ -84,6 +88,17 @@ extension CharacterViewController: CharacterViewModelDelegate {
             self?.collectionView.isHidden = true
             self?.showMessageError(message: error)
         }
+    }
+    
+    func showLoading(){
+        view.addSubview(loadingIndicator)
+        loadingIndicator.center = view.center
+        loadingIndicator.startAnimating()
+    }
+    
+    func hideLoading(){
+        loadingIndicator.stopAnimating()
+        loadingIndicator.removeFromSuperview()
     }
 }
 

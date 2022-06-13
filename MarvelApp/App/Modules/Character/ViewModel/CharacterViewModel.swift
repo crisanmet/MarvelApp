@@ -6,10 +6,14 @@
 //
 
 import Foundation
+import UIKit
+
 
 protocol CharacterViewModelDelegate: AnyObject {
     func didGetCharacterData()
     func didFailGettingCharacterData(error: String)
+    func showLoading()
+    func hideLoading()
 }
 
 protocol ComicsViewModelDelegate: AnyObject {
@@ -32,24 +36,16 @@ class CharacterViewModel{
         self.characterService = characterService
     }
     
-//    func getCharacters(){
-//        DispatchQueue.global().async { [weak self] in
-//            self?.characterService.fetchCharacter(onComplete: { character in
-//                self?.characters = character.data.results
-//                self?.delegate?.didGetCharacterData()
-//            }, onError: { error in
-//                self?.delegate?.didFailGettingCharacterData(error: error)
-//            })
-//        }
-//    }
-    
     func getCharacters(pageNumber: Int = 1){
+        self.loadingView(.show)
         DispatchQueue.global().async { [weak self] in
             self?.characterService.fetchCharacter(pageNumber: pageNumber, onComplete: { character in
                 self?.characters.append(contentsOf: character.data.results)
                 self?.delegate?.didGetCharacterData()
+                self?.loadingView(.hide)
             }, onError: { error in
                 self?.delegate?.didFailGettingCharacterData(error: error)
+                self?.loadingView(.hide)
             })
         }
     }
@@ -76,6 +72,12 @@ class CharacterViewModel{
         return characterComics.count
     }
     
-
-    
+    func loadingView(_ state: LoadingViewState){
+        switch state {
+        case .show:
+            self.delegate?.showLoading()
+        case .hide:
+            self.delegate?.hideLoading()
+        }
+    }
 }

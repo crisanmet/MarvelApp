@@ -10,6 +10,7 @@ import UIKit
 class EventsViewController: UIViewController {
 
     //MARK: - Properties
+    var loadingIndicator = UIActivityIndicatorView(style: .large)
     
     lazy var viewModel: EventsViewModel = {
         let eventsViewModel = EventsViewModel()
@@ -80,6 +81,17 @@ extension EventsViewController: EventsViewModelDelegate{
             self?.collectionView.isHidden = true
             self?.showMessageError(message: error)
         }
+    }
+    
+    func showLoading(){
+        view.addSubview(loadingIndicator)
+        loadingIndicator.center = view.center
+        loadingIndicator.startAnimating()
+    }
+    
+    func hideLoading(){
+        loadingIndicator.stopAnimating()
+        loadingIndicator.removeFromSuperview()
     }
 }
 

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ComicsTableViewCell: UITableViewCell {
+class ReusableTableViewCell: UITableViewCell {
 
     
     static let identifier = "ComicsTableViewCell"

@@ -10,6 +10,8 @@ import Foundation
 protocol EventsViewModelDelegate: AnyObject {
     func didGetEventsData()
     func didFailGettingEventsData(error: String)
+    func showLoading()
+    func hideLoading()
 }
 
 class EventsViewModel {
@@ -25,12 +27,15 @@ class EventsViewModel {
     }
     
     func getEvents(){
+        self.loadingView(.show)
         DispatchQueue.global().async { [weak self] in
             self?.eventsService.fetchEvent(onComplete: { event in
                 self?.events = event.data.results
                 self?.delegate?.didGetEventsData()
+                self?.loadingView(.hide)
             }, onError: { error in
                 self?.delegate?.didFailGettingEventsData(error: error)
+                self?.loadingView(.hide)
             })
         }
     }
@@ -41,6 +46,15 @@ class EventsViewModel {
     
     func getEventsCount() -> Int{
         return events.count
+    }
+    
+    func loadingView(_ state: LoadingViewState){
+        switch state {
+        case .show:
+            self.delegate?.showLoading()
+        case .hide:
+            self.delegate?.hideLoading()
+        }
     }
     
     func convertDateFormat(inputDate: String) -> String {

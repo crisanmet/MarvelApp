@@ -70,7 +70,7 @@ class DetailEventsViewController: UIViewController {
     
     lazy var eventsFeedTable: UITableView = {
         let table = UITableView()
-        table.register(ComicsTableViewCell.self, forCellReuseIdentifier: ComicsTableViewCell.identifier)
+        table.register(ReusableTableViewCell.self, forCellReuseIdentifier: ReusableTableViewCell.identifier)
         table.delegate = self
         table.dataSource = self
         return table
@@ -133,7 +133,7 @@ extension DetailEventsViewController: UITableViewDataSource, UITableViewDelegate
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ComicsTableViewCell.identifier, for: indexPath) as? ComicsTableViewCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ReusableTableViewCell.identifier, for: indexPath) as? ReusableTableViewCell
         else {
             return UITableViewCell()
         }
