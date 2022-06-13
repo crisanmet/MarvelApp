@@ -13,6 +13,8 @@ class CharacterViewController: UIViewController {
     
     //MARK: - Properties
     
+    var pagingNumber = 1
+    
     lazy var viewModel: CharacterViewModel = {
         let characterViewModel = CharacterViewModel()
         characterViewModel.delegate = self
@@ -46,7 +48,7 @@ class CharacterViewController: UIViewController {
         view.addSubview(collectionView)
         collectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor,left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor,  right: view.rightAnchor, paddingLeft: 12, paddingRight: 12)
 
-        viewModel.getCharacters()
+        viewModel.getCharacters(pageNumber: 1)
     }
     
     //MARK: - Helpers
@@ -72,6 +74,7 @@ extension CharacterViewController: CharacterViewModelDelegate {
     func didGetCharacterData() {
         DispatchQueue.main.async { [weak self] in
             self?.collectionView.isHidden = false
+            self?.pagingNumber += 1
             self?.collectionView.reloadData()
         }
     }
@@ -127,6 +130,15 @@ extension CharacterViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 10
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        let offsetY = scrollView.contentOffset.y
+        let height = scrollView.contentSize.height
+        
+        if offsetY > height - scrollView.frame.size.height {
+            viewModel.getCharacters(pageNumber: pagingNumber)
+        }
     }
     
 }

@@ -15,9 +15,9 @@ struct ApiManager {
     
     private init(){}
     
-    func get(url: String, params: [String:Any] ,completion: @escaping (Result<Data?, AFError>) -> ()){
+    func get(url: String,completion: @escaping (Result<Data?, AFError>) -> ()){
         
-        AF.request(url, method: .get, parameters: params).response { response in
+        AF.request(url, method: .get).response { response in
             completion(response.result)
         }
     

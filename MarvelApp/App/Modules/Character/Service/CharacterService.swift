@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 
 protocol CharacterFetching{
-    func fetchCharacter(onComplete: @escaping (CharacterResponse) ->(), onError: @escaping (String) ->())
+    func fetchCharacter(pageNumber: Int, onComplete: @escaping (CharacterResponse) ->(), onError: @escaping (String) ->())
 }
 
 struct CharacterService: CharacterFetching {
@@ -17,19 +17,16 @@ struct CharacterService: CharacterFetching {
     private let baseURL = ProcessInfo.processInfo.environment["characterURL"]!
     private let apiKey = ProcessInfo.processInfo.environment["apiKey"]!
     private let hash = ProcessInfo.processInfo.environment["hash"]!
+    private var limit = 15
 
     
     static let shared = CharacterService()
     
-    func fetchCharacter(onComplete: @escaping (CharacterResponse) ->(), onError: @escaping (String) ->()){
-        
-        let params: Parameters = ["apikey": apiKey,
-                                  "hash": hash,
-                                  "ts": 1,
-                                  "limit": 15
-        ]
-        
-        ApiManager.shared.get(url: "\(baseURL)", params: params) { response in
+    func fetchCharacter(pageNumber: Int = 1 , onComplete: @escaping (CharacterResponse) ->(), onError: @escaping (String) ->()){
+     
+        let url = baseURL + buildQueryString(pageNumber: pageNumber, shouldPage: true)
+
+        ApiManager.shared.get(url: "\(url)") { response in
             switch response {
             case .success(let data):
                 do{
@@ -47,6 +44,18 @@ struct CharacterService: CharacterFetching {
                 onError(ApiError.noCharacterData.errorDescription!)
             }
         }
+    }
+    
+    private func buildQueryString(pageNumber: Int = 1, shouldPage: Bool = false) -> String{
+        
+        var queryString = "?apikey=\(apiKey)&hash=\(hash)&ts=1"
+       
+        if shouldPage{
+            let offset = limit * pageNumber
+            queryString = queryString + "&offset=\(offset)&limit=\(limit)"
+            print(queryString)
+        }
+        return queryString
     }
     
     

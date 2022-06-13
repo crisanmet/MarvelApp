@@ -32,10 +32,21 @@ class CharacterViewModel{
         self.characterService = characterService
     }
     
-    func getCharacters(){
+//    func getCharacters(){
+//        DispatchQueue.global().async { [weak self] in
+//            self?.characterService.fetchCharacter(onComplete: { character in
+//                self?.characters = character.data.results
+//                self?.delegate?.didGetCharacterData()
+//            }, onError: { error in
+//                self?.delegate?.didFailGettingCharacterData(error: error)
+//            })
+//        }
+//    }
+    
+    func getCharacters(pageNumber: Int = 1){
         DispatchQueue.global().async { [weak self] in
-            self?.characterService.fetchCharacter(onComplete: { character in
-                self?.characters = character.data.results
+            self?.characterService.fetchCharacter(pageNumber: pageNumber, onComplete: { character in
+                self?.characters.append(contentsOf: character.data.results)
                 self?.delegate?.didGetCharacterData()
             }, onError: { error in
                 self?.delegate?.didFailGettingCharacterData(error: error)
