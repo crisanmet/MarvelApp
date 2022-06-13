@@ -23,13 +23,10 @@ struct EventsService: EventsFetching {
     
     func fetchEvent(onComplete: @escaping (CharacterResponse) ->(), onError: @escaping (String) ->()){
         
-        let params: Parameters = ["apikey": apiKey,
-                                  "hash": hash,
-                                  "ts": 1,
-                                  "limit": 15
-        ]
+        let url = baseURL + buildQueryString()
+
         
-        ApiManager.shared.get(url: "\(baseURL)") { response in
+        ApiManager.shared.get(url: "\(url)") { response in
             switch response {
             case .success(let data):
                 do{
@@ -49,6 +46,10 @@ struct EventsService: EventsFetching {
         }
     }
     
-    
+    private func buildQueryString() -> String{
+        
+        let queryString = "?apikey=\(apiKey)&hash=\(hash)&ts=1"
+        return queryString
+    }
 }
 

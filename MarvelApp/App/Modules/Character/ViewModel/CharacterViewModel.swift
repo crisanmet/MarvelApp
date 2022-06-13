@@ -76,5 +76,6 @@ class CharacterViewModel{
         return characterComics.count
     }
     
+
     
 }

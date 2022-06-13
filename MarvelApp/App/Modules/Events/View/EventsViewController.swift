@@ -109,7 +109,10 @@ extension EventsViewController: UICollectionViewDelegate, UICollectionViewDataSo
         cell.layer.masksToBounds = false
         
         let event = viewModel.getEvents(at: indexPath.row)
+        let dateFormat = viewModel.convertDateFormat(inputDate: event.modified ?? "Unkown date")
+        
         cell.configureCell(with: event)
+        cell.configureDate(date: dateFormat)
         return cell
         
     }

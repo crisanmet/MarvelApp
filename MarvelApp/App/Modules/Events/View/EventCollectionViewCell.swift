@@ -78,8 +78,11 @@ class EventCollectionViewCell: UICollectionViewCell {
         DispatchQueue.main.async { [weak self] in
             self?.frontImageView.load(url: urlString)
             self?.nameLabel.text = model.title?.uppercased()
-            guard let safeData = model.start else { return}
-            self?.captionLabel.text = safeData
         }
     }
+    
+    public func configureDate(date: String){
+        self.captionLabel.text = date.capitalized
+    }
+    
 }
