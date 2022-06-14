@@ -40,12 +40,14 @@ class EventsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Events"
-        navigationController?.navigationBar.prefersLargeTitles = true
         
         view.addSubview(collectionView)
         collectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor,left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor,  right: view.rightAnchor, paddingLeft: 12, paddingRight: 12)
 
         viewModel.getEvents()
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleSignOut))
+        navigationController?.navigationBar.tintColor = .black
     
     }
     
@@ -63,6 +65,15 @@ class EventsViewController: UIViewController {
             
             present(alert, animated: true)
         }
+    
+    @objc func handleSignOut(){
+        DispatchQueue.main.async {
+            let loginVC = LoginViewController()
+            let nav = UINavigationController(rootViewController: loginVC)
+            nav.modalPresentationStyle = .fullScreen
+            self.present(nav, animated: true)
+        }
+    }
 }
 
 //MARK: - Events view model Delegate

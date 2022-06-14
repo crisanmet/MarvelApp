@@ -8,7 +8,7 @@
 import Foundation
 
 enum ApiError {
-    case noCharacterData, noEventsData
+    case noCharacterData, noEventsData, failLogin, failSignup
 }
 
 extension ApiError: LocalizedError {
@@ -16,6 +16,8 @@ extension ApiError: LocalizedError {
         switch self {
         case .noCharacterData : return "The Character service is not available"
         case .noEventsData : return "The Events service is not available"
+        case .failLogin : return "Invalid username or Password"
+        case .failSignup : return "The email is already in use"
         }
     }
 }

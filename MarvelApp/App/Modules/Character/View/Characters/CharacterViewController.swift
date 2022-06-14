@@ -45,12 +45,14 @@ class CharacterViewController: UIViewController {
         super.viewDidLoad()
         
         title = "Characters"
-        navigationController?.navigationBar.prefersLargeTitles = true
         
         view.addSubview(collectionView)
         collectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor,left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor,  right: view.rightAnchor, paddingLeft: 12, paddingRight: 12)
 
         viewModel.getCharacters(pageNumber: 1)
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleSignOut))
+        navigationController?.navigationBar.tintColor = .black
     }
     
     //MARK: - Helpers
@@ -68,6 +70,14 @@ class CharacterViewController: UIViewController {
             present(alert, animated: true)
         }
     
+    @objc func handleSignOut(){
+        DispatchQueue.main.async {
+            let loginVC = LoginViewController()
+            let nav = UINavigationController(rootViewController: loginVC)
+            nav.modalPresentationStyle = .fullScreen
+            self.present(nav, animated: true)
+        }
+    }
 
 }
 
