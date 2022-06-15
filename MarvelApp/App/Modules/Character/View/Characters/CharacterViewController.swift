@@ -46,6 +46,7 @@ class CharacterViewController: UIViewController {
         super.viewDidLoad()
         
         title = "Characters"
+        view.backgroundColor = .white
         
         view.addSubview(collectionView)
         collectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor,left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor,  right: view.rightAnchor, paddingLeft: 12, paddingRight: 12)

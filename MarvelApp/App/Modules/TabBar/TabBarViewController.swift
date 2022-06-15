@@ -12,7 +12,7 @@ class TabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .white
         let characterVC = UINavigationController(rootViewController: CharacterViewController())
         let eventsVC = UINavigationController(rootViewController: EventsViewController())
         

@@ -85,6 +85,9 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.delegate = self
+        
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
 
         setupUI()
     }
@@ -127,6 +130,7 @@ class LoginViewController: UIViewController {
     
     @objc func handleLogin(){
         viewModel.loginUser()
+        
     }
 
     @objc func handleShowSignUp(){
@@ -167,4 +171,15 @@ extension LoginViewController: LoginDelegate{
     }
     
     
+}
+
+//MARK: - Textfield Delegate
+
+extension LoginViewController: UITextFieldDelegate{
+    
+   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        emailTextField.endEditing(true)
+        passwordTextField.endEditing(true)
+       return true
+    }
 }

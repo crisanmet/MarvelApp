@@ -102,10 +102,12 @@ class CharacterDetailViewController: UIViewController {
     }
     
     func setupViews(){
+        view.backgroundColor = .white
         contentView.addSubview(frontImage)
         contentView.addSubview(captionLabel)
         contentView.addSubview(appearsLabel)
         contentView.addSubview(comicsFeedTable)
+        
         
         frontImage.anchor(top: contentView.topAnchor, left: contentView.leftAnchor, right: contentView.rightAnchor)
         frontImage.setDimensions(height: 400, width: contentView.frame.width)
