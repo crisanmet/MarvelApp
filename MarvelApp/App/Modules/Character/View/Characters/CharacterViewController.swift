@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class CharacterViewController: UIViewController {
 
@@ -72,11 +73,17 @@ class CharacterViewController: UIViewController {
     
     @objc func handleSignOut(){
         DispatchQueue.main.async {
+        let firebaseAuth = Auth.auth()
+        do {
+          try firebaseAuth.signOut()
             let loginVC = LoginViewController()
             let nav = UINavigationController(rootViewController: loginVC)
             nav.modalPresentationStyle = .fullScreen
             self.present(nav, animated: true)
+        } catch let signOutError as NSError {
+            self.showMessageError(message: signOutError as! String)
         }
+      }
     }
 
 }

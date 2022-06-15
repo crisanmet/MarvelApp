@@ -44,8 +44,6 @@ class LoginViewModel {
                 return
             }else {
                 self.delegate?.didSuccessLoginUser()
-                let userDefault = UserDefaults.standard
-                userDefault.set("Logueado", forKey: "Login")
             }
         }
     }
@@ -61,8 +59,6 @@ class LoginViewModel {
                 return
             }else {
                 self.delegate?.didSuccessLoginUser()
-                let userDefault = UserDefaults.standard
-                userDefault.set("Logueado", forKey: "Login")
             }
         }
     }

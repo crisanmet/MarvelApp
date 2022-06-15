@@ -17,16 +17,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         
-        if UserDefaults.standard.object(forKey: "Login") != nil {
+        if Auth.auth().currentUser?.uid != nil {
             window?.windowScene = windowScene
             window?.rootViewController = UINavigationController(rootViewController: TabBarViewController())
             window?.makeKeyAndVisible()
-            print("aca")
         }else {
             window?.windowScene = windowScene
             window?.rootViewController = UINavigationController(rootViewController: LoginViewController())
             window?.makeKeyAndVisible()
-            print("login")
+            
       }
     }
 
