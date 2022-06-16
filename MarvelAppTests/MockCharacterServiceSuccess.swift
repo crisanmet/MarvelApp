@@ -11,7 +11,6 @@ import Foundation
 class MockCharacterServiceSuccess: CharacterFetching{
     func fetchCharacter(pageNumber: Int, onComplete: @escaping (CharacterResponse) -> (), onError: @escaping (String) -> ()) {
                 let url = Bundle.main.url(forResource: "Mock", withExtension: "json")
-                print(url)
                 do{
                     let decoder = JSONDecoder()
                     let jsonData = try Data(contentsOf: url!)

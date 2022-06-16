@@ -11,7 +11,11 @@ class LoginViewController: UIViewController {
 
     //MARK: - Properties
     
-    private var viewModel = LoginViewModel()
+    lazy var viewModel: LoginViewModel = {
+        let login = LoginViewModel()
+        login.delegate = self
+        return login
+    }()
     
     lazy var emailTextField: UITextField = {
         let spacer = UIView()
@@ -84,7 +88,6 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.delegate = self
         
         emailTextField.delegate = self
         passwordTextField.delegate = self

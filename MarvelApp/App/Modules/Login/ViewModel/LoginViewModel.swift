@@ -38,12 +38,12 @@ class LoginViewModel {
             return
         }
 
-        Auth.auth().createUser(withEmail: email, password: password) { result, error in
+        Auth.auth().createUser(withEmail: email, password: password) {[weak self] result, error in
             if error != nil {
-                self.delegate?.didFailLoginUser(error: ApiError.failSignup.errorDescription!)
+                self?.delegate?.didFailLoginUser(error: ApiError.failSignup.errorDescription!)
                 return
             }else {
-                self.delegate?.didSuccessLoginUser()
+                self?.delegate?.didSuccessLoginUser()
             }
         }
     }
@@ -53,12 +53,12 @@ class LoginViewModel {
             return
         }
 
-        Auth.auth().signIn(withEmail: email, password: password) { result, error in
+        Auth.auth().signIn(withEmail: email, password: password) {[weak self] result, error in
             if error != nil {
-                self.delegate?.didFailLoginUser(error: ApiError.failLogin.errorDescription!)
+                self?.delegate?.didFailLoginUser(error: ApiError.failLogin.errorDescription!)
                 return
             }else {
-                self.delegate?.didSuccessLoginUser()
+                self?.delegate?.didSuccessLoginUser()
             }
         }
     }
