@@ -76,7 +76,7 @@ class EventCollectionViewCell: UICollectionViewCell {
     public func configureCell(with model:Character){
         guard let urlString = URL(string: "\(model.thumbnail?.path ?? "").\(model.thumbnail?.thumbnailExtension ?? "")") else {return}
         DispatchQueue.main.async { [weak self] in
-            self?.frontImageView.load(url: urlString)
+            self?.frontImageView.loadImage(at: urlString)
             self?.nameLabel.text = model.title?.uppercased()
         }
     }
