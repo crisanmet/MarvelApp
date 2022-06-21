@@ -18,15 +18,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         
     
-//        if Auth.auth().currentUser != nil {
-//            window?.windowScene = windowScene
-//            window?.rootViewController = UINavigationController(rootViewController: TabBarViewController())
-//            window?.makeKeyAndVisible()
-//        }else {
+        if Auth.auth().currentUser != nil {
+            window?.windowScene = windowScene
+            window?.rootViewController = UINavigationController(rootViewController: TabBarViewController())
+            window?.makeKeyAndVisible()
+        }else {
             window?.windowScene = windowScene
             window?.rootViewController = UINavigationController(rootViewController: LoginViewController())
             window?.makeKeyAndVisible()
- //     }
+      }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

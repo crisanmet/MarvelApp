@@ -14,9 +14,9 @@ protocol CharacterFetching{
 
 struct CharacterService: CharacterFetching {
     
-    private let baseURL = ProcessInfo.processInfo.environment["characterURL"]!
-    private let apiKey = ProcessInfo.processInfo.environment["apiKey"]!
-    private let hash = ProcessInfo.processInfo.environment["hash"]!
+    private let baseURL = "https://gateway.marvel.com/v1/public/characters"
+    private let apiKey = "f161a8fc551c04c58ce8415ca5590985"
+    private let hash = "5cc8fb010118e81c8e61c46d129d8f1a"
     private var limit = 15
 
     

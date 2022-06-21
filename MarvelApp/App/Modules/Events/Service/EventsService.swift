@@ -14,9 +14,9 @@ protocol EventsFetching{
 
 struct EventsService: EventsFetching {
     
-    private let baseURL = ProcessInfo.processInfo.environment["eventsURL"]!
-    private let apiKey = ProcessInfo.processInfo.environment["apiKey"]!
-    private let hash = ProcessInfo.processInfo.environment["hash"]!
+    private let baseURL = "https://gateway.marvel.com/v1/public/events"
+    private let apiKey = "f161a8fc551c04c58ce8415ca5590985"
+    private let hash = "5cc8fb010118e81c8e61c46d129d8f1a"
 
     
     static let shared = CharacterService()
