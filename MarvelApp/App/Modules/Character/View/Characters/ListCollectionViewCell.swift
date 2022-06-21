@@ -11,6 +11,8 @@ class ListCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "ListCollectionViewCell"
     
+    var onReuse: () -> Void = {}
+    
     private let frontImageView: UIImageView = {
          let imageView = UIImageView()
          imageView.contentMode = .scaleAspectFill
@@ -40,6 +42,11 @@ class ListCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+    override func prepareForReuse() {
+        onReuse()
+        frontImageView.image = nil
+        frontImageView.cancelImageLoad()
+    }
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -68,7 +75,7 @@ class ListCollectionViewCell: UICollectionViewCell {
     public func configureCell(with model:Character){
         guard let urlString = URL(string: "\(model.thumbnail?.path ?? "").\(model.thumbnail?.thumbnailExtension ?? "")") else {return}
         DispatchQueue.main.async { [weak self] in
-            self?.frontImageView.load(url: urlString)
+            self?.frontImageView.loadImage(at: urlString)
             self?.nameLabel.text = model.name?.uppercased()
             self?.captionLabel.text = model.resultDescription?.description.maxLength(length: 20)
         }

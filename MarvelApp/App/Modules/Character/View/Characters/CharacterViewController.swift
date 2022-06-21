@@ -146,6 +146,8 @@ extension CharacterViewController: UICollectionViewDelegate, UICollectionViewDat
         
         let character = viewModel.getCharacter(at: indexPath.row)
         cell.configureCell(with: character)
+        
+        
         return cell
         
     }

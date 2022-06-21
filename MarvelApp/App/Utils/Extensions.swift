@@ -111,6 +111,16 @@ extension UIImageView {
     }
 }
 
+extension UIImageView {
+  func loadImage(at url: URL) {
+    UIImageLoader.loader.load(url, for: self)
+  }
+
+  func cancelImageLoad() {
+    UIImageLoader.loader.cancel(for: self)
+  }
+}
+
 extension String {
    func maxLength(length: Int) -> String {
        var str = self
